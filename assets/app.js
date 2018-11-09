@@ -3,6 +3,7 @@ $(document).ready(function() {
     var shows = ["Family Guy", "American Horror Story", "Broad City", "Shameless", "Rick and Morty", "Friends", "Game of Thrones", "Homeland", "Big Bang Theory",
                 "American Dad", "Breaking Bad"]
 
+        //grab shows and make button from array
         function renderButtons() {
             $("#buttondiv").empty();
             for (var i = 0; i < shows.length; i++) {
@@ -13,13 +14,45 @@ $(document).ready(function() {
                 $("#buttondiv").append(showbutton);
             }
         }
-    
+        // add user's additional show
         $("#add-show").on("click", function(event) {
             event.preventDefault();
             var show = $("#show-input").val().trim();
             shows.push(show);
             renderButtons();
         });
+
+        //get gif from Giphy Api
+        $("#buttondiv").on("click", ".show-button", function() {
+            $("#gifdiv").empty();
+
+            var tvshow = $(this).attr("data-name");
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + tvshow + "&limit=15&api_key=b1Nn9S5pn3lgtex55XvTgzcDJLLgu4oF";
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+            .then(function(response) {
+                var results = response.data;
+
+                for (var i = 0; i < results.length; i++) {
+                    var showgifDiv = $("<div>");
+
+                    var rating = results[i].rating;
+                    var p = $("<p>").text("Rating: " + rating);
+
+                    var gifImage = $("<img>");
+                    gifImage.attr("src", results[i].images.fixed_height.url);
+
+                    showgifDiv.prepend(p);
+                    showgifDiv.prepend(gifImage);
+                    $("#gifdiv").prepend(showgifDiv);
+                }
+            })
+
+
+        })
 
         renderButtons();
 });
