@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     var shows = ["Family Guy", "American Horror Story", "Broad City", "Shameless", "Rick and Morty", "Friends", "Game of Thrones", "Homeland", "Big Bang Theory",
-                "American Dad", "Breaking Bad"]
+                "American Dad", "Breaking Bad",""]
 
         //grab shows and make button from array
         function renderButtons() {
@@ -18,8 +18,11 @@ $(document).ready(function() {
         $("#add-show").on("click", function(event) {
             event.preventDefault();
             var show = $("#show-input").val().trim();
+            //prevents button to be created without an input
+            if(show != ("")){
             shows.push(show);
             renderButtons();
+            }
         });
 
         //get gif from Giphy Api
@@ -49,8 +52,6 @@ $(document).ready(function() {
                     gifImage.attr("data-animate", results[i].images.fixed_height.url);
                     gifImage.attr("data-state", "still");
                     gifImage.addClass("clickimg");
-
-
                     showgifDiv.prepend(p);
                     showgifDiv.prepend(gifImage);
                     $("#gifdiv").prepend(showgifDiv);
@@ -58,24 +59,25 @@ $(document).ready(function() {
             })
         
         })
+
+        //animate gif or make still
         $("#gifdiv").on("click", ".clickimg", function() {
 
             var state = $(this).attr("data-state");
         
             if(state === "still") {
                 var animate = $(this).attr("data-animate");
-                //change giphy link to the one to animate
                 $(this).attr("src", animate);
-                //change state of giphy to animate
                 $(this).attr("data-state", "animate");
+
             } else {
                 var still = $(this).attr("data-still");
-                //change giphy link to the one that is still
                 $(this).attr("src", still);
-                //change state of giphy to animate
                 $(this).attr("data-state", "still");
             }
         
         })
+        
+
         renderButtons();
 });
