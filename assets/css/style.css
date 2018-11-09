@@ -1,15 +1,31 @@
 body {
     font-family: 'Acme', sans-serif;
+    background-color: black;
+    color: aliceblue;
 }
 
-#buttondiv {
-    margin-top: 60px;
+.show-button {
+    padding: 6px;
+    margin: 10px;
 }
 
-#movie-form {
-    margin-bottom: 20px;
+#add-show {
+    color: #212529;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s;
 }
 
-#gifdiv {
-
+h1 {
+    margin-top: 50px;
 }
