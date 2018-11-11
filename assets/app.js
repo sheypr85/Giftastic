@@ -14,12 +14,26 @@ $(document).ready(function() {
                 $("#buttondiv").append(showbutton);
             }
         }
+
+        function preventduplicate(usershow) {
+            var showlist = []
+            for (i = 0; i < shows.length; i++) {
+                showlist[i] = shows[i].toLowerCase();
+            }
+            usershow = usershow.toLowerCase();
+            if (showlist.indexOf(usershow) == -1){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
         // add user's additional show
         $("#add-show").on("click", function(event) {
             event.preventDefault();
             var show = $("#show-input").val().trim();
             //prevents button to be created without an input
-            if(show != ("")){
+            if( (show != (""))  && (preventduplicate(show)) ) {
                 shows.push(show);
                 renderButtons();
             }
@@ -82,5 +96,5 @@ $(document).ready(function() {
         })
         
 
-        renderButtons();
+    renderButtons();
 });
