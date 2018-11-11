@@ -14,8 +14,8 @@ $(document).ready(function() {
                 $("#buttondiv").append(showbutton);
             }
         }
-
-        function preventduplicate(usershow) {
+    // function to prevent user from duplicating a show
+        function preventDuplicate(usershow) {
             var showlist = []
             for (i = 0; i < shows.length; i++) {
                 showlist[i] = shows[i].toLowerCase();
@@ -32,8 +32,8 @@ $(document).ready(function() {
         $("#add-show").on("click", function(event) {
             event.preventDefault();
             var show = $("#show-input").val().trim();
-            //prevents button to be created without an input
-            if( (show != (""))  && (preventduplicate(show)) ) {
+            //prevents button to be created without an input and if show is duplicated
+            if( (show != (""))  && (preventDuplicate(show)) ) {
                 shows.push(show);
                 renderButtons();
             }
